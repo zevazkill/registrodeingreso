@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Registro de Ingreso</title>
+  <script>
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+      } else {
+        alert("La geolocalización no es soportada por este navegador.");
+      }
+    }
+
+    function showPosition(position) {
+      var latitude = position.coords.latitude;
+      var longitude = position.coords.longitude;
+      document.getElementById('ubicacion').value = 'Latitud: ' + latitude + ', Longitud: ' + longitude;
+      document.getElementById('form').submit();
+    }
+
+    window.onload = getLocation;
+  </script>
+</head>
+<body>
+  <form id="form" action="https://forms.office.com/Pages/ResponsePage.aspx?id=N-TJQGWrS0Webm8FbHYHoEwV8kG2VUZKgWtGD_iSZC5URFM2S01RVVY5SkNFQjVYU0dXU1NSVkpLRC4u" method="post" target="_self">
+    <input type="hidden" id="ubicacion" name="ubicacion">
+    <!-- Aquí puedes añadir otros campos si es necesario -->
+    <input type="submit" value="Enviar">
+  </form>
+</body>
+</html>
