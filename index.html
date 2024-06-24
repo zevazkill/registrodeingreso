@@ -5,7 +5,7 @@
   <script>
     function getLocation() {
       if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
       } else {
         alert("La geolocalización no es soportada por este navegador.");
       }
@@ -18,11 +18,28 @@
       document.getElementById('form').submit();
     }
 
+    function showError(error) {
+      switch(error.code) {
+        case error.PERMISSION_DENIED:
+          alert("El usuario denegó la solicitud de geolocalización.");
+          break;
+        case error.POSITION_UNAVAILABLE:
+          alert("La información de ubicación no está disponible.");
+          break;
+        case error.TIMEOUT:
+          alert("La solicitud para obtener la ubicación del usuario ha caducado.");
+          break;
+        case error.UNKNOWN_ERROR:
+          alert("Se ha producido un error desconocido.");
+          break;
+      }
+    }
+
     window.onload = getLocation;
   </script>
 </head>
 <body>
-  <form id="form" action="https://forms.office.com/Pages/ResponsePage.aspx?id=N-TJQGWrS0Webm8FbHYHoEwV8kG2VUZKgWtGD_iSZC5URFM2S01RVVY5SkNFQjVYU0dXU1NSVkpLRC4u" method="post" target="_self">
+  <form id="form" action="https://forms.office.com/Pages/ResponsePage.aspx?ID=YOUR_FORM_ID" method="post" target="_self">
     <input type="hidden" id="ubicacion" name="ubicacion">
     <!-- Aquí puedes añadir otros campos si es necesario -->
     <input type="submit" value="Enviar">
