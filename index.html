@@ -1,48 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-  <title>Registro de Ingreso</title>
-  <script>
-    function getLocation() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition, showError);
-      } else {
-        alert("La geolocalización no es soportada por este navegador.");
-      }
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Captura de Geolocalización</title>
+    <script>
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                alert("Geolocalización no es soportada por este navegador.");
+            }
+        }
 
-    function showPosition(position) {
-      var latitude = position.coords.latitude;
-      var longitude = position.coords.longitude;
-      document.getElementById('ubicacion').value = 'Latitud: ' + latitude + ', Longitud: ' + longitude;
-      document.getElementById('form').submit();
-    }
+        function showPosition(position) {
+            // Reemplaza este enlace con el enlace de tu formulario de Microsoft Forms
+            var formUrl = "https://forms.office.com/Pages/ResponsePage.aspx?id=N-TJQGWrS0Webm8FbHYHoEwV8kG2VUZKgWtGD_iSZC5URFM2S01RVVY5SkNFQjVYU0dXU1NSVkpLRC4u";
+            var params = new URLSearchParams();
+            params.append("latitud", position.coords.latitude);
+            params.append("longitud", position.coords.longitude);
 
-    function showError(error) {
-      switch(error.code) {
-        case error.PERMISSION_DENIED:
-          alert("El usuario denegó la solicitud de geolocalización.");
-          break;
-        case error.POSITION_UNAVAILABLE:
-          alert("La información de ubicación no está disponible.");
-          break;
-        case error.TIMEOUT:
-          alert("La solicitud para obtener la ubicación del usuario ha caducado.");
-          break;
-        case error.UNKNOWN_ERROR:
-          alert("Se ha producido un error desconocido.");
-          break;
-      }
-    }
+            window.location.href = formUrl + "&" + params.toString();
+        }
 
-    window.onload = getLocation;
-  </script>
+        function showError(error) {
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    alert("El usuario negó la solicitud de geolocalización.");
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    alert("La información de ubicación no está disponible.");
+                    break;
+                case error.TIMEOUT:
+                    alert("La solicitud para obtener la ubicación se agotó.");
+                    break;
+                case error.UNKNOWN_ERROR:
+                    alert("Ocurrió un error desconocido.");
+                    break;
+            }
+        }
+
+        window.onload = getLocation;
+    </script>
 </head>
 <body>
-  <form id="form" action="https://forms.office.com/Pages/ResponsePage.aspx?id=N-TJQGWrS0Webm8FbHYHoEwV8kG2VUZKgWtGD_iSZC5URFM2S01RVVY5SkNFQjVYU0dXU1NSVkpLRC4u" method="post" target="_self">
-    <input type="hidden" id="ubicacion" name="ubicacion">
-    <!-- Aquí puedes añadir otros campos si es necesario -->
-    <input type="submit" value="Enviar">
-  </form>
+    <h1>Obteniendo tu ubicación...</h1>
 </body>
 </html>
